@@ -40,6 +40,11 @@ const priority = zod.enum(["Low", "Medium", "High"], {
   invalid_type_error: "Priority must be a string",
 });
 
+const closedAt = zod.date({
+  required_error: "Closed At is required",
+  invalid_type_error: "Closed At must be a date",
+});
+
 const createLeadSchema = zod
   .object({
     name,
@@ -48,6 +53,7 @@ const createLeadSchema = zod
     status,
     priority,
     timeToClose,
+    closedAt:closedAt.optional(),
     tags: tags.optional(),
   })
   .strict();
@@ -60,6 +66,7 @@ const updateLeadSchema = zod
     status: status.optional(),
     priority: priority.optional(),
     timeToClose: timeToClose.optional(),
+    closedAt:closedAt.optional(),
     tags: tags.optional(),
   })
   .strict();
